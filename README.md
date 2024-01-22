@@ -1,2 +1,7 @@
 # grafana-whatsapp
 This Repo is related to integrations of Grafana with WhatsAPP using WhatsAPP API and Webhook
+
+#Deployment
+docker run -d --name whatsapp-api -p 3000:3000/tcp --restart always devlikeapro/whatsapp-http-api
+cd webhook
+node webhook-server.mjs
