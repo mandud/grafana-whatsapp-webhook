@@ -13,6 +13,10 @@ cd webhook
 
 node webhook-server.mjs
 
+**Node Version** = v18.18.2
+**NPM Version** = 9.8.1
+**Operating System** = RedHat 8
+
 **WHATSAPP-API** = https://github.com/devlikeapro/whatsapp-http-api
 
 **Webhook-mjs Code** = https://chat.openai.com/
