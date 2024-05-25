@@ -5,11 +5,13 @@ import express from 'express';
 import bodyParser from 'body-parser';
 
 const app = express();
-const PORT = 3100;
+const PORT = 3027;
 
 app.use(bodyParser.json());
 
-app.post('/webhook', (req, res) => {
+const apiKey = 'your api key'; // Replace with your actual API key (outside code)
+
+app.post('/webhook/:phoneNumber', (req, res) => {
   try {
     const jsonData = req.body;
     const textData = extractMessage(jsonData);
@@ -20,9 +22,14 @@ app.post('/webhook', (req, res) => {
     // Extract "message" content excluding "Silence," "Source," "Dashboard," and "Panel"
     const formattedText = `*WhatsApp-Webhook Message:*\n${textData}`;
 
-    const apiUrl = `http://10.10.10.10:3000/api/sendText?phone=923331234567&text=${encodeURIComponent(formattedText)}&session=default`;
+    const phoneNumber = req.params.phoneNumber; // Extract phone number from URL parameter
+    const apiUrl = `http://grafana-url:3000/api/sendText?phone=${phoneNumber}&text=${encodeURIComponent(formattedText)}&session=default`;
 
-    axios.get(apiUrl)
+    axios.get(apiUrl, {
+    headers: {
+      'X-Api-Key': apiKey,
+       }
+     })
       .then(response => {
         console.log('Response from the API:', response.data);
         res.status(200).send('Webhook received and processed successfully');
